@@ -138,8 +138,8 @@ void Terminal::sendLine(int line, CHAR_INFO *lineData, int width)
                     strcat(buffer, ";1");
             }
             strcat(buffer, "m");
-            if (!m_consoleMode)
-                termLine.append(buffer);
+            
+            termLine.append(buffer);
             length = termLine.size();
             m_remoteColor = color;
         }
