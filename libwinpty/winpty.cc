@@ -412,6 +412,19 @@ WINPTY_API winpty_t *winpty_open(int cols, int rows, bool consoleMode)
     return pc;
 }
 
+WINPTY_API int winpty_get_child_process_id(winpty_t *pc)
+{
+
+	if (!pc->open) {
+		return -2;
+	}
+
+	WriteBuffer packet;
+	packet.putInt(AgentMsg::GetChildProcessId);
+	writePacket(pc, packet);
+	return readInt32(pc);
+}
+
 WINPTY_API int winpty_start_process(winpty_t *pc,
                                     const wchar_t *appname,
                                     const wchar_t *cmdline,

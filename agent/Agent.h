@@ -60,7 +60,7 @@ public:
           int initialCols,
           int initialRows);
     virtual ~Agent();
-    void sendDsr();
+    void sendDsr();	
 
 private:
     NamedPipe *makeSocket(LPCWSTR pipeName);
@@ -72,6 +72,7 @@ private:
     int handleStartProcessPacket(ReadBuffer &packet);
     int handleSetSizePacket(ReadBuffer &packet);
     void pollDataSocket();
+	DWORD childProcessId();
 
 protected:
     virtual void onPollTimeout();
@@ -98,6 +99,7 @@ private:
     bool m_consoleMode;
     ConsoleInput *m_consoleInput;
     HANDLE m_childProcess;
+	DWORD m_childProcessId;
     int m_childExitCode;
 
     con_status_s m_conout;
