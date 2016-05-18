@@ -74,6 +74,7 @@ WINPTY_API int winpty_start_process(winpty_t *pc,
  * Returns the exit code of the process started with winpty_start_process,
  * or -1 none is available.
  */
+WINPTY_API int winpty_get_child_process_id(winpty_t *pc);
 WINPTY_API int winpty_get_exit_code(winpty_t *pc);
 
 /*

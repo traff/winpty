@@ -127,6 +127,10 @@ Agent::~Agent()
     }
 }
 
+DWORD Agent::childProcessId() {
+	return m_childProcessId;
+}
+
 // Write a "Device Status Report" command to the terminal.  The terminal will
 // reply with a row+col escape sequence.  Presumably, the DSR reply will not
 // split a keypress escape sequence, so it should be safe to assume that the
@@ -214,6 +218,10 @@ void Agent::handlePacket(ReadBuffer &packet)
         ASSERT(packet.eof());
         result = m_childExitCode;
         break;
+	case AgentMsg::GetChildProcessId:
+		ASSERT(packet.eof());
+		result = m_childProcessId;
+		break;
     default:
         trace("Unrecognized message, id:%d", type);
     }
@@ -271,6 +279,7 @@ int Agent::handleStartProcessPacket(ReadBuffer &packet)
     if (success) {
         CloseHandle(pi.hThread);
         m_childProcess = pi.hProcess;
+		m_childProcessId = pi.dwProcessId;
     }
 
     return ret;
